@@ -6,6 +6,7 @@ import axios from 'axios';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [redirect, setRedirect] = useState('false');
 
   async function handleLoginSummit(event) {
     event.preventDefault();
@@ -14,16 +15,20 @@ const LoginPage = () => {
         email,
         password,
       });
+      alert('Login successful');
     } catch (e) {
       alert('Login failed. Please try again later');
     }
+  }
+  if (redirect) {
+    return <div>yeah</div>;
   }
 
   return (
     <div className="mt-4 grow flex items-center justify-around">
       <div className="mb-64">
         <h1 className="text-4xl text-center mb-4">Login</h1>
-        <form className="max-w-md mx-auto" onSubmit={{ handleLoginSummit }}>
+        <form className="max-w-md mx-auto" onSubmit={handleLoginSummit}>
           <input
             type="email"
             placeholder="your@email.com"
