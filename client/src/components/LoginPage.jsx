@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import axios from 'axios';
 
 const LoginPage = () => {
@@ -21,7 +21,7 @@ const LoginPage = () => {
     }
   }
   if (redirect) {
-    return <div>yeah</div>;
+    return <Navigate to={'/'} />;
   }
 
   return (
