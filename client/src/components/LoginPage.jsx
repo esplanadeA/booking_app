@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
@@ -7,11 +7,11 @@ import {UserContext} from '../UserContext';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [redirect, setRedirect] = useState('false');
+  const [redirect, setRedirect] = useState(false);
 
-  const {setUser} = UserContext(UserContext);
+  const {setUser} = useContext(UserContext);
 
-  async function handleLoginSummit(event) {
+  async function handleLoginSubmit(event) {
     event.preventDefault();
     try {
       const userInfo = await axios.post('/login', {
@@ -33,7 +33,7 @@ const LoginPage = () => {
     <div className="mt-4 grow flex items-center justify-around">
       <div className="mb-64">
         <h1 className="text-4xl text-center mb-4">Login</h1>
-        <form className="max-w-md mx-auto" onSubmit={handleLoginSummit}>
+        <form className="max-w-md mx-auto" onSubmit={handleLoginSubmit}>
           <input
             type="email"
             placeholder="your@email.com"
