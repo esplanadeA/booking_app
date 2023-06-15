@@ -60,16 +60,35 @@ app.post('/login', async (req, res) => {
         function (err, token) {
           if (err) {
             console.error(err);
+            res.status(500).json({message: 'Error signing JWT token'});
+          } else {
+            res.cookie('token', token).json(userDoc);
           }
-          res.cookie('token', token).json(userDoc);
         }
       );
     } else {
-      res.status(422).json('pass not okay');
+      res.status(422).json({message: 'Invalid password'});
     }
   } else {
-    res.json('not found');
+    res.status(404).json({message: 'User not found'});
   }
+});
+
+app.get('/profile', (req, res) => {
+  const userId = req.userId;
+  User.findById(userId)
+    .then((user) => {
+      if (user) {
+        // Send the user information as JSON response
+        res.json(user);
+      } else {
+        res.status(404).json({message: 'User not found'});
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({message: 'Error retrieving user information'});
+    });
 });
 
 app.listen(4000);

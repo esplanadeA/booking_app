@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import axios from 'axios';
 import {UserContext} from '../UserContext';
 
@@ -26,7 +26,7 @@ const LoginPage = () => {
     }
   }
   if (redirect) {
-    return <div>yeah</div>;
+    return <Navigate to={'/'} />;
   }
 
   return (
@@ -48,7 +48,7 @@ const LoginPage = () => {
           />
           <button className="primary">Login</button>
           <div className="text-center py-2 text-gray-500">
-            have an account yet?
+            Don't have an account yet?
             <Link className="underline text-black" to={'/register'}>
               Register
             </Link>
